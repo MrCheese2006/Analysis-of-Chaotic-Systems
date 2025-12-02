@@ -166,7 +166,7 @@ def runge_kutta_8(system, t, params, points, dt):
 
     y_vec = np.array(points, dtype=float)
 
-    def f(t, Y):
+    def f(t, Y): 
         dx, dy, dz = system(Y[0], Y[1], Y[2], 0, params)
         return np.array([dx, dy, dz], dtype=float)
 
@@ -857,3 +857,5 @@ if __name__ == "__main__":
 
     run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
         plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, GS, Poincare, discard, modelling_error, error_comparison, log_scale)
+    
+    #Fish
