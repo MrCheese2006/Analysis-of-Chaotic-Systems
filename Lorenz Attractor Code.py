@@ -809,14 +809,14 @@ if __name__ == "__main__":
     init_rf = np.array([-1, 0, 0.5])
     init_chen = np.array([-10, 0, 37])
     init_henon = np.array([0, 0])
-    init_m_chua = np.array([1, 0, 0])
+    init_m_chua = np.array([0, 0, 0])
     init_duffing = np.array([0, 0, 0])
 
     init = init_m_chua
 
     # step
     dt = 0.1
-    num_steps_to_stop = 100000 # the number of steps that the simulation goes through before stopping
+    num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
 
     params_custom = [] # choose your own parameters
 
@@ -825,7 +825,7 @@ if __name__ == "__main__":
     params_rf = [0.14, 0.1] # a, b
     params_chen = [35, 3, 28] # a, b, c
     params_henon = [1.4, 0.3] # a, b
-    params_m_chua = [10.814, 14.0, 1.3, 0.11, 11, 0] # alpha, Beta, a, b, c, d. Note that c is odd => d = 0, c is even => d = pi
+    params_m_chua = [10.814, 14.0, 1.3, 0.11, 8, np.pi] # alpha, Beta, a, b, c, d. Note that c is odd => d = 0, c is even => d = pi
     params_duffing = [1, -1, 0.2, 0.3, 1] # aplha, Beta, gamma, delta, omega 
 
     # choose which parameter set you could like to use while modelling
