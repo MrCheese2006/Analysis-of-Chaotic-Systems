@@ -841,8 +841,8 @@ if __name__ == "__main__":
     RK8 = 0
     model_henon = 0
     # plotting:
-    plot_all = 1
-    plot = 0
+    plot_all = 0
+    plot = 1
     plot_xy = 0
     plot_xz = 0
     plot_yz = 0
