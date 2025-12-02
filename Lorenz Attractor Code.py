@@ -812,11 +812,11 @@ if __name__ == "__main__":
     init_m_chua = np.array([0, 0, 0])
     init_duffing = np.array([0, 0, 0])
 
-    init = init_m_chua
+    init = init_henon
 
     # step
-    dt = 0.1
-    num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
+    dt = 0.001
+    num_steps_to_stop = 100000 # the number of steps that the simulation goes through before stopping
 
     params_custom = [] # choose your own parameters
 
@@ -829,19 +829,19 @@ if __name__ == "__main__":
     params_duffing = [1, -1, 0.2, 0.3, 1] # aplha, Beta, gamma, delta, omega 
 
     # choose which parameter set you could like to use while modelling
-    params = params_m_chua
+    params = params_henon
 
     # Commands:
     runtime = 1 # get runtime
-    system = modified_chua # choose system to model
+    system = duffing # choose system to model
     # modelling methods:
     EM = 0
     improved_EM = 0
-    RK4 = 1
+    RK4 = 0
     RK8 = 0
-    model_henon = 0
+    model_henon = 1
     # plotting:
-    plot_all = 1
+    plot_all = 0
     plot = 0
     plot_xy = 0
     plot_xz = 0
