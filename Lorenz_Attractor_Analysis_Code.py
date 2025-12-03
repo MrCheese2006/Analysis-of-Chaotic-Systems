@@ -696,7 +696,7 @@ def get_system_name(system):
     elif system == chen:
         return "Chen System"
     elif system == henon:
-        return "Henon System"
+        return "Hénon System"
     elif system == duffing:
         return "Duffing System"
     else:
