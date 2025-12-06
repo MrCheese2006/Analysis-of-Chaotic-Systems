@@ -69,23 +69,15 @@ disturbance = 0.0001
 
 # Orbit separation:
 orbit_sep = 0
-method = lrnz.runge_kutta
-sub_method = lrnz.runge_kutta_4
-d0 = 1e-8
-discard = 100
 plot_running = 'y' # y or n
 
 # Modified Gram-Schmidt Orthonormalization Method
 GS = 0
-discard = 100
 
 # Average Lyapunov Exponent and Uncertainties
 average_lyapunov = 1
-lyapunov_method = lrnz.GS_ortho
-method = lrnz.runge_kutta
-sub_method = lrnz.runge_kutta_4
-d0 = 1e-8
-discard = 100
+lyapunov_method = lrnz.orbsep
+num_iterations = 1000
 
 # Poincare Map
 Poincare = 0
@@ -95,7 +87,12 @@ modelling_error = 0
 error_comparison = 0
 log_scale = 0
 
+# Additional Commands for the noted analysis methods
+method = lrnz.runge_kutta # orbit seperation and Average Lyapunov
+sub_method = lrnz.runge_kutta_4 # orbit seperation and Average Lyapunov
+d0 = 1e-8 # orbit seperation and Average Lyapunov
+discard = 100 # orbit seperation, Gram-Schmidt and Average Lyapunov
 
 lrnz.run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
         plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
-        lyapunov_method, Poincare, discard, modelling_error, error_comparison, log_scale)
+        lyapunov_method, num_iterations, Poincare, discard, modelling_error, error_comparison, log_scale)

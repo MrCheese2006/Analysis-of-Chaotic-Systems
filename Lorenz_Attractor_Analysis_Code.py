@@ -513,9 +513,7 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
 
 # Average Lyapunov Exponent Calculation
 
-def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard):
-
-    num_iterations = 100
+def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard, num_iterations):
 
     if lyapunov_method == GS_ortho:
 
@@ -746,7 +744,7 @@ def get_system_name(system):
 
 def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
         plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
-        lyapunov_method, Poincare, discard, modelling_error, error_comparison, log_scale):
+        lyapunov_method, num_iterations, Poincare, discard, modelling_error, error_comparison, log_scale):
 
     print("Running")
 
@@ -818,7 +816,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
         print(GS_ortho(x, y, z, params, dt, num_steps_to_stop, discard))
 
     if average_lyapunov:
-        print(avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard))
+        print(avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard, num_iterations))
 
     if Poincare:
         print(poincare(x, y, z))
