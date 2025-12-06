@@ -459,7 +459,97 @@ def GS_ortho(x, y, z, params, dt, num_steps_to_stop, discard):
 
 ############################################################################################################################
 
-# Poincare maps
+# Orbit Separation
+
+def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_stop, params, discard, system_name):
+
+    x_discard, y_discard, z_discard = method(init, system, sub_method, dt, params, 300)
+
+    x_a = np.array([x_discard[-1], y_discard[-1], z_discard[-1]])
+    
+    d = np.random.normal(size=3)
+    d = d / np.linalg.norm(d) * d0
+    x_b = x_a + d
+
+    log_sum = 0.0
+    running_avg = []
+
+    for i in range(num_steps_to_stop):
+
+        xa1, ya1, za1 = method(x_a, system, sub_method, dt, params, 1)
+        xb1, yb1, zb1 = method(x_b, system, sub_method, dt, params, 1)
+
+        xa1, ya1, za1 = xa1[1], ya1[1], za1[1]  
+        xb1, yb1, zb1 = xb1[1], yb1[1], zb1[1]
+
+        diff = np.array([xb1 - xa1, yb1 - ya1, zb1 - za1])
+        d1 = np.linalg.norm(diff)
+        d1 = max(d1, 1e-20)
+
+        
+        logd = np.log(d1 / d0)
+        if i >= discard:
+            log_sum += logd
+            running_avg.append(log_sum / (i - discard + 1) / dt)  
+
+        
+        x_b = np.array([xa1, ya1, za1]) + d0 * diff / d1
+        x_a = np.array([xa1, ya1, za1])
+    
+    if plot_running == 'y':
+        x_vals = np.empty_like(running_avg)
+        for i in range(len(x_vals)):
+            x_vals[i] = dt*i + discard*dt
+        plt.figure()
+        plt.ylabel("Running Lyaponuv Values")
+        plt.xlabel("Time")
+        plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
+        plt.plot(x_vals, running_avg)
+        plt.savefig("figures/analysis/Orbit_Separation_Running_Lyaponuv_Values")
+
+    return running_avg[-1]
+
+############################################################################################################################
+
+# Average Lyapunov Exponent Calculation
+
+def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard):
+
+    num_iterations = 100
+
+    if lyapunov_method == GS_ortho:
+
+        exponents = np.zeros((num_iterations, 3)) # rows, columns
+
+        for i in range(num_iterations):
+            init = np.random.uniform(0.0, 100.0, 3) # generate random initial conditions each time on the interval [0.0, 100.0)
+            x, y, z = model(method, init, system, sub_method, dt, params, num_steps_to_stop)
+            exponents[i] = lyapunov_method(x, y, z, params, dt, num_steps_to_stop, discard) # at i-th row, put in the i-th caluclation values for lyapunov exponents
+        
+        average = np.mean(exponents, 0) # produces the mean of each column and stores in a a 1x3 average array
+        uncertainty = np.std(exponents, 0) # produces the standard deviation of each column and stores in a a 1x3 average array
+
+        return f"Average Lyapunov Spectrum = {average} \u00B1 {uncertainty}"
+
+
+    elif lyapunov_method == orbsep:
+
+        exponents = np.empty((num_iterations, 1))
+
+        for i in range(num_iterations):
+            init = np.random.uniform(0.0, 100.0, 3) # generate random initial conditions on the interval [0.0, 100.0) each iteration 
+            exponents[i] = lyapunov_method(method, sub_method, system, init, d0, 'n', dt, num_steps_to_stop, params, discard, None)
+        
+        average = np.mean(exponents, 0) # produces the mean of each column and stores in a a 1x3 average array
+        uncertainty = np.std(exponents, 0) # produces the standard deviation of each column and stores in a a 1x3 average array
+
+        return f"Average Maximal Lyapunov Value = {average[0]} \u00B1 {uncertainty[0]}"
+
+    return "Invalid Lyapunov method"
+
+############################################################################################################################
+
+# Poincare Maps
 
 def poincare(x, y, z):
 
@@ -508,58 +598,6 @@ def poincare(x, y, z):
             write_file.write(str(intsec_points[j])+'\n')
 
     return intsec_points
-
-############################################################################################################################
-
-# Orbit Separation
-
-def orbsep(method, sub_method, system, init, d0, dt, num_steps_to_stop, params, discard, system_name): 
-
-    plot = (input("Would you like to plot the running Lyapunov values? (Y/N) ")).upper()
-
-    x_a = init
-    
-    d = np.random.normal(size=3)
-    d = d / np.linalg.norm(d) * d0
-    x_b = x_a + d
-
-    log_sum = 0.0
-    running_avg = []
-
-    for i in range(num_steps_to_stop):
-        xa1, ya1, za1 = method(x_a, system, sub_method, dt, params, 1)
-        xb1, yb1, zb1 = method(x_b, system, sub_method, dt, params, 1)
-
-        xa1, ya1, za1 = xa1[1], ya1[1], za1[1]  
-        xb1, yb1, zb1 = xb1[1], yb1[1], zb1[1]
-
-        diff = np.array([xb1 - xa1, yb1 - ya1, zb1 - za1])
-        d1 = np.linalg.norm(diff)
-        d1 = max(d1, 1e-20)
-
-        
-        logd = np.log(d1 / d0)
-        if i >= discard:
-            log_sum += logd
-            running_avg.append(log_sum / (i - discard + 1) / dt)  
-
-        
-        x_b = np.array([xa1, ya1, za1]) + d0 * diff / d1
-        x_a = np.array([xa1, ya1, za1])
-    
-    if plot == 'Y':
-        x_vals = np.empty_like(running_avg)
-        for i in range(len(x_vals)):
-            x_vals[i] = dt*i + discard*dt
-        plt.figure()
-        plt.ylabel("Running Lyaponuv Values")
-        plt.xlabel("Time")
-        plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
-        plt.plot(x_vals, running_avg)
-        plt.savefig("figures/analysis/Orbit_Separation_Running_Lyaponuv_Values")
-        plt.show()
-
-    return running_avg[-1]
 
 ############################################################################################################################
 
@@ -707,7 +745,8 @@ def get_system_name(system):
 # run the code
 
 def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
-        plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, GS, Poincare, discard, modelling_error, error_comparison, log_scale):
+        plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
+        lyapunov_method, Poincare, discard, modelling_error, error_comparison, log_scale):
 
     print("Running")
 
@@ -773,10 +812,13 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
         plot_yz_proj(y, z, system_name)
 
     if orbit_sep:
-        print(orbsep(method, sub_method, system, init, 1e-8, dt, num_steps_to_stop, params, discard, system_name))
+        print(orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_stop, params, discard, system_name))
 
     if GS:
         print(GS_ortho(x, y, z, params, dt, num_steps_to_stop, discard))
+
+    if average_lyapunov:
+        print(avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard))
 
     if Poincare:
         print(poincare(x, y, z))
@@ -787,7 +829,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
 
     print("Done")
 
-    if plot or plot_xy or plot_xz or plot_yz or plot_all or modelling_error or error_comparison or model_henon or sensitive_dependance:
+    if plot or plot_xy or plot_xz or plot_yz or plot_all or orbit_sep or modelling_error or error_comparison or model_henon or sensitive_dependance:
         plt.show()
 
     return

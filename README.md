@@ -15,3 +15,9 @@ The code has the following implmentations:
 - Determining the maximal Lyapunov exponent using the orbit separation method
 - Using Richardson Extrapolation to determine the approximate running error. This can be used in a comparison of error for the various modelling methods
 - Plotting the difference in systems with a small purturbation to the initial condition in the \(x\) direction to visually depict the deterministic chaotic behaviour these systems can have.
+
+## Code Use Instructions
+
+A video demonstrating how to use each implementation of the code can be found here: INSERT LINK. Text instructions are below. 
+
+Modelling:

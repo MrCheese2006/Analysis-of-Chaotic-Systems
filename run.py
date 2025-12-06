@@ -2,15 +2,15 @@ import Lorenz_Attractor_Analysis_Code as lrnz
 import numpy as np
 
 
-# Initial Conditions
+# Initial Conditions ##########################################################################################################
 
 # choose your own initial conditions
-x_0 = 0.9
-y_0 = 0
-z_0 = 0
-init = np.array([x_0, y_0, z_0])
+x_0 = 3
+y_0 = -65
+z_0 = 123
+init_custom = np.array([x_0, y_0, z_0])
 
-# pre-set initial conditions for each system
+# pre-set initial conditions for each system 
 init_lorenz = np.array([1, 1, 1])
 init_rf = np.array([-1, 0, 0.5])
 init_chen = np.array([-10, 0, 37])
@@ -18,12 +18,9 @@ init_henon = np.array([0, 0])
 init_m_chua = np.array([0, 0, 0])
 init_duffing = np.array([0, 0, 0])
 
-init = init_lorenz
+init = init_custom
 
-# step
-dt = 0.01
-num_steps_to_stop = 100000 # the number of steps that the simulation goes through before stopping
-
+# System Parameters ###########################################################################################################
 params_custom = [] # choose your own parameters
 
 # pre-set parameters for each system
@@ -37,29 +34,68 @@ params_duffing = [1, -1, 0.2, 0.3, 1] # aplha, Beta, gamma, delta, omega
 # choose which parameter set you could like to use while modelling
 params = params_lorenz
 
-# Commands:
-runtime = 1 # get runtime
-system = lrnz.lorenz # choose system to model
-# modelling methods:
+
+# step ########################################################################################################################
+dt = 0.01
+num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
+
+# Commands: ###################################################################################################################
+
+# Get runtime
+runtime = 1 
+
+# Choose which system you would like to model
+system = lrnz.lorenz
+
+# Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 1
+RK4 = 0
 RK8 = 0
 model_henon = 0
-# plotting:
+
+# Plotting:
 plot_all = 0
 plot = 0
 plot_xy = 0
 plot_xz = 0
 plot_yz = 0
-# analysis:
-sensitive_dependance, disturbance = 1, 0.0001
-orbit_sep, method, sub_method, d0 = 0, lrnz.runge_kutta, lrnz.runge_kutta_4, 1e-8
-GS = 0
-Poincare = 0
+
+# Analysis:
+
+# Sensitive dependance:
+sensitive_dependance = 0
+disturbance = 0.0001
+
+# Orbit separation:
+orbit_sep = 0
+method = lrnz.runge_kutta
+sub_method = lrnz.runge_kutta_4
+d0 = 1e-8
 discard = 100
+plot_running = 'y' # y or n
+
+# Modified Gram-Schmidt Orthonormalization Method
+GS = 0
+discard = 100
+
+# Average Lyapunov Exponent and Uncertainties
+average_lyapunov = 1
+lyapunov_method = lrnz.GS_ortho
+method = lrnz.runge_kutta
+sub_method = lrnz.runge_kutta_4
+d0 = 1e-8
+discard = 100
+
+# Poincare Map
+Poincare = 0
+
+# Modelling Error
 modelling_error = 0
-error_comparison, log_scale = 0, 0
+error_comparison = 0
+log_scale = 0
+
 
 lrnz.run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
-         plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, GS, Poincare, discard, modelling_error, error_comparison, log_scale)
+        plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
+        lyapunov_method, Poincare, discard, modelling_error, error_comparison, log_scale)
