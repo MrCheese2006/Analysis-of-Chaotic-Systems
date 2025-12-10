@@ -15,7 +15,7 @@ The code has the following implmentations:
 - Determining the maximal Lyapunov exponent using the orbit separation method
 - Calculate the average Lyapunov spectrum or maximal value for the respective methods above
 - Using Richardson Extrapolation to determine the approximate running error. This can be used in a comparison of error for the various modelling methods
-- Plotting the difference in systems with a small purturbation to the initial condition in the \(x\) direction to visually depict the deterministic chaotic behaviour these systems can have.
+- Plotting the difference in systems with a small purturbation to the initial condition in the $x$ direction to visually depict the deterministic chaotic behaviour these systems can have.
 
 ## Code Use Instructions
 
@@ -30,4 +30,9 @@ Initial conditions (IC's) are required for all analysis methods except for compu
 Parameters are required for all analysis methods, and have a similar functionality to the IC's. Pre-set or custom parameters are availible for use and are specified in the same way as the IC's are. Note that each system has a set amount of paramters (see below), so one must be aware of how many parameters to use for their desired system.
 
 Parameters for each system:
-- Lorenz: 3 (\(\sigma\), \(\rho\), \(\beta\))
+- Lorenz: 3 ($\sigma$, $\rho$, $\beta$)
+- Rabinovich-Fabrikant: 2 ($a$, $b$)
+- Chen: 3 ($a$, $b$, $c$)
+- Henon: 2 ($a$, $b$)
+- Modified Chua: ($\alpha$, $\beta$, $a$, $b$, $c$, $d$)
+    - Note that if $c\in\mathbb{Z}^{+}$ is odd, then $d = \pi$ and if $c$ is even, then  $d=0$
