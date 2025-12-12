@@ -115,7 +115,7 @@ The following analysis tools are implemented in the code:
     - Orbit Separation
     - Modified Gram-Schmidt Orthonormalization
     - Average Lyapunov Exponent and Uncertainties
-3. Poincare Maps
+3. Poincaré Maps
 4. Modelling Error
 
 Each of the above tools are explained in their own section below. Note that the code was developed primarily for use with the Lorenz system, so analysis functionality with the other systems was not sufficiently tested. Additionally, overlap of variables may result in errors if multiple analysis methods are run at once, so only doing one at a time is recommended.
@@ -190,7 +190,7 @@ Using the Modified Gram-Schmidt Orthonormalization Method requires setting ```GS
 
 To determine the Average Lyapunov exponent, set ```orbit_sep = 0```, ```GS = 0``` and ```average_lyapunov = 1```. The other  commands used are ```lyapunov_method```, ```num_iterations```, ```method```, ```sub_method```, ```d0``` and ```discard```. Setting ```lyapunov_method = lrnz.orbsep``` or ```lyapunov_method = lrnz.GS_ortho``` determines the average Lyapunov value(s) using the Orbit Separation Method or the Modified Gram-Schmidt Orthonormalization Method, respectively. ```num_iterations``` specifies the number of times the Lyapunov values are calculated, enabling the average and error calculations. The other commands have the same functionality as earlier described, however all need to be set, regardless of the choice of ```lyapunov_method```. The parameters, step size and number of steps also need to be specified, however the initial conditions do **not**. The average Lyapunov exponent(s) and their error will be printed to the terminal. If ```lyapunov_method = lrnz.orbsep``` is chosen, the running exponent values will not be plotted.
 
-#### Poincare Maps
+#### Poincaré Maps
 
 The command section for this analysis tool is the following:
 
@@ -199,7 +199,7 @@ The command section for this analysis tool is the following:
 Poincare = 0
 ```
 
-To plot a Poincare Map for a system, set ```Poincare = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. After running the code, two prompts will appear in the terminal. The first one is ```"Input axis of intersecting plane (x, y or z): " ```, and the second one is ```"Input equation for constant plane of intersection: "```. The first input gets the user to choose what axis they want their intersecting plane to be on. The inputs $(x, y, z) \text{ or } (X, Y, Z)$ for the standard axes of $\mathbb{R}^3$ are accepted. The second input gets the user to input the point along the specified axis at which the plane will be constructed. As previously mentioned, this code only provides support for constant planes. For example, if the inputs to the first and second prompts were respectively chosen as ```z``` and ```25```, a Poincare map would be produced of the intersections of the model with the plane $z = 25$. A 3D plot of the model and the specified plane is also produced. All plots will be saved to ```figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}``` in the working directory. A text file of the intersection points will also be created and saved to ```figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{system_name}_{axis}={plane}.txt``` in the working directory. ```axis``` and ```plane``` are the user inputs.
+To plot a Poincaré Map for a system, set ```Poincare = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. After running the code, two prompts will appear in the terminal. The first one is ```"Input axis of intersecting plane (x, y or z): " ```, and the second one is ```"Input equation for constant plane of intersection: "```. The first input gets the user to choose what axis they want their intersecting plane to be on. The inputs $(x, y, z) \text{ or } (X, Y, Z)$ for the standard axes of $\mathbb{R}^3$ are accepted. The second input gets the user to input the point along the specified axis at which the plane will be constructed. As previously mentioned, this code only provides support for constant planes. For example, if the inputs to the first and second prompts were respectively chosen as ```z``` and ```25```, a Poincaré map would be produced of the intersections of the model with the plane $z = 25$. A 3D plot of the model and the specified plane is also produced. All plots will be saved to ```figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}``` in the working directory. A text file of the intersection points will also be created and saved to ```figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{system_name}_{axis}={plane}.txt``` in the working directory. ```axis``` and ```plane``` are the user inputs.
 
 #### Modelling Error
 
@@ -213,3 +213,7 @@ log_scale = 0
 ```
 
 In order to calculate the modelling error of a single model, set ```modelling_error = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. By setting ```error_comparison = 1```, a plot of the error for each of the modelling methods, EM, IEM, RK4 and RK8, will be generated to facilitate error comparison. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps and ```system```. A modelling method does not need to be chosen. All plots will be produced and saved to ```figures/analysis/Modelling_Error``` in the working directory. In either of the above cases, setting ```log_scale = 1``` plots the figures on a logarithmic scale.
+
+
+
+Thats it! Enjoy the code :)!
