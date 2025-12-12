@@ -180,7 +180,7 @@ In order to avoid calculation errors, an initial set of values should be discard
 
 It is recommended to leave the ```d0``` and ```discard``` values unchanged.
 
-The maximal Lyapunov exponent will be printed to the terminal, and if ```plot_running = 1``` then the generated figure will be saved to ```figures/analysis/Lyapunov_Exponents/figures/analysis/Orbit_Separation_Running_Lyapunov_Values_{system_name}.png```
+The maximal Lyapunov exponent will be printed to the terminal, and if ```plot_running = 'y'``` then the generated figure will be saved to ```figures/analysis/Lyapunov_Exponents/figures/analysis/Orbit_Separation_Running_Lyapunov_Values_{system_name}.png```
 
 **Modified Gram-Schmidt Orthonormalization Method:**
 
