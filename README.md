@@ -216,4 +216,4 @@ In order to calculate the modelling error of a single model, set ```modelling_er
 
 
 
-Thats it! Enjoy the code :)!
+Thats it! Enjoy the code :) !
