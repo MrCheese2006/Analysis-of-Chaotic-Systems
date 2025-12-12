@@ -681,7 +681,7 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
 
 ############################################################################################################################
 
-# Sensitive dependance to initial conditions
+# Sensitive dependence to initial conditions
 
 def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, sub_method, d0, system_name):
 
@@ -716,7 +716,7 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
     plt.xlabel("Time")
 
     fig.tight_layout()
-    fig.savefig(f"figures/analysis/sensitive_dependance_{system_name}")
+    fig.savefig(f"figures/analysis/Sensitive_Dependence_{system_name}")
     return
 
 ############################################################################################################################
@@ -743,7 +743,7 @@ def get_system_name(system):
 # run the code
 
 def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
-        plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
+        plot_xz, plot_yz, sensitive_dependence, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
         lyapunov_method, num_iterations, Poincare, discard, modelling_error, error_comparison, log_scale):
 
     print("Running")
@@ -783,8 +783,8 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
     if model_henon:
         henon(init, params, num_steps_to_stop)
 
-    # visualization of sensitive dependance to initial conditions
-    if sensitive_dependance:
+    # visualization of sensitive dependence to initial conditions
+    if sensitive_dependence:
         senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, sub_method, disturbance, system_name)
 
     # error analysis
@@ -827,7 +827,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
 
     print("Done")
 
-    if plot or plot_xy or plot_xz or plot_yz or plot_all or orbit_sep or modelling_error or error_comparison or model_henon or sensitive_dependance or Poincare:
+    if plot or plot_xy or plot_xz or plot_yz or plot_all or orbit_sep or modelling_error or error_comparison or model_henon or sensitive_dependence or Poincare:
         plt.show()
 
     return

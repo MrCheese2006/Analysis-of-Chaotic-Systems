@@ -63,8 +63,8 @@ plot_yz = 0
 
 # Analysis:
 
-# Sensitive dependance:
-sensitive_dependance = 0
+# Sensitive dependence:
+sensitive_dependence = 0
 disturbance = 0.0001
 
 # Orbit separation:
@@ -80,10 +80,10 @@ lyapunov_method = lrnz.orbsep
 num_iterations = 1000
 
 # Additional Commands for the noted analysis methods
-method = lrnz.runge_kutta # Orbit Seperation and Average Lyapunov
-sub_method = lrnz.runge_kutta_4 # Orbit Seperation and Average Lyapunov
-d0 = 1e-8 # Orbit Seperation and Average Lyapunov
-discard = 100 # Orbit Seperation, Gram-Schmidt and Average Lyapunov
+method = lrnz.runge_kutta # Orbit Separation and Average Lyapunov
+sub_method = lrnz.runge_kutta_4 # Orbit Separation and Average Lyapunov
+d0 = 1e-8 # Orbit Separation and Average Lyapunov
+discard = 100 # Orbit Separation, Gram-Schmidt and Average Lyapunov
 
 # Poincare Map
 Poincare = 1
@@ -94,5 +94,5 @@ error_comparison = 0
 log_scale = 0
 
 lrnz.run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
-        plot_xz, plot_yz, sensitive_dependance, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
+        plot_xz, plot_yz, sensitive_dependence, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
         lyapunov_method, num_iterations, Poincare, discard, modelling_error, error_comparison, log_scale)

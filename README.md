@@ -2,36 +2,36 @@
 
 ## Basic Overview
 
-This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code. In order to run the code, the following libraries need to be installed: ```numpy```, ```matplotlib```, and ```time```.
+This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich-Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code. In order to run the code, the following libraries need to be installed: ```numpy```, ```matplotlib```, and ```time```.
 
-The code has the following implmentations:
+The code has the following implementations:
 - Modelling in 3-dimensional space (where applicable), as well as their projections on the xy, xz and yz planes. The following modelling methods are implemented:
-    - Eulers Method (EM)
-    - Improved Eulers Method (IEM)
+    - Euler's Method (EM)
+    - Improved Euler's Method (IEM)
     - Runge-Kutta 4 (RK4)
     - Runge-Kutta 8 (RK8)
-- Plotting a poincare map on a user-defined plane. Only constant planes are supported.
+- Plotting a Poincaré map on a user-defined plane. Only constant planes are supported.
 - Determining the spectrum of Lyapunov exponents of a system with the Modified Gram-Schmidt Orthonormalization method
 - Determining the maximal Lyapunov exponent using the orbit separation method
 - Calculate the average Lyapunov spectrum or maximal value for the respective methods above
 - Using Richardson Extrapolation to determine the approximate running error. This can be used in a comparison of error for the various modelling methods
-- Plotting the difference in systems with a small purturbation to the initial condition in the $x$ direction to visually depict the deterministic chaotic behaviour these systems can have.
+- Plotting the difference in systems with a small perturbation to the initial condition in the $x$ direction to visually depict the deterministic chaotic behaviour these systems can have.
 
 ## Code Use Instructions
 
 All of the code is run and managed from the ```run.py``` file through a series of command sections. This is where the initial conditions, system parameters, number of steps and step size are chosen. It is also where the commands are placed for which analysis method to use. This is done by making the desired command variable equal to 1. Each analysis method has some additional parameters that need to be specified, some of while are repeated across methods. These repeated parameters are placed below the commands under the comment block ```Additional Commands for the noted analysis methods```. The required use of these parameters will be discussed in more detail for each analysis method.
 
 #### Initial Conditions
-Initial conditions (IC's) are required for all analysis methods except for computing the average Lyapunov spectrum or maximal value. Pre-set IC's are availible for use for each system, or one can create their own custom IC's. The chosen IC must be specified in the ```init``` variable. For example, if one wanted to use the initial conditions for the lorenz system or use custom parameters, they would set ```init = init_lorenz``` or ```init = init_custom```, respectively.
+Initial conditions (IC's) are required for all analysis methods except for computing the average Lyapunov spectrum or maximal value. Pre-set IC's are available for use for each system, or one can create their own custom IC's. The chosen IC must be specified in the ```init``` variable. For example, if one wanted to use the initial conditions for the Lorenz system or use custom parameters, they would set ```init = init_lorenz``` or ```init = init_custom```, respectively.
 
 #### Parameters
-Parameters are required for all analysis methods, and have a similar functionality to the IC's. Pre-set or custom parameters are availible for use and are specified in the same way as the IC's are. Note that each system has a set amount of paramters (see below), so one must be aware of how many parameters to use for their desired system.
+Parameters are required for all analysis methods, and have a similar functionality to the IC's. Pre-set or custom parameters are available for use and are specified in the same way as the IC's are. Note that each system has a set amount of parameters (see below), so one must be aware of how many parameters to use for their desired system.
 
 Parameters for each system with some traditional values:
 - Lorenz: $(\sigma, \text{ } \rho, \text{ } \beta) = (10, \text{ } 28, \text{ } 8/3)$
 - Rabinovich-Fabrikant: $(a, \text{ } b) = (0.1, \text{ } 0.1)$ 
 - Chen: $(a, \text{ } b, \text{ } c) = (35, \text{ } 3, \text{ } 28)$
-- Henon: $(a, \text{ } b) = (1.4, \text{ } 0.3)$
+- Hénon: $(a, \text{ } b) = (1.4, \text{ } 0.3)$
 - Modified Chua: $(\alpha, \text{ } \beta, \text{ } a, \text{ } b, \text{ }, \text{ } d) = (10.814, \text{ } 14.0, \text{ } 1.3, \text{ } 0.11, \text{ } 8, \text{ } \pi)$
     - Note that if $c\in \{0, \mathbb{Z}^{+}\}$ is even, then $d = \pi$. If $c$ is odd, then  $d=0$.
 - Duffing: $(\alpha, \text{ } \beta, \text{ } \gamma, \text{ } \delta, \text{ } \omega) = (1, \text{ } -1, \text{ } 0.2, \text{ } 0.3, \text{ } 1)$
@@ -60,7 +60,7 @@ In order to model a system the code requires the use of the following command se
     - Duffing: ```lrnz.duffing``` <br> <br>
 
 2. Modelling Methods:
-    The modelling methods section of the ```run.py``` file has the following commands availible:
+    The modelling methods section of the ```run.py``` file has the following commands available:
 
     ```python
     EM = 0
@@ -73,7 +73,7 @@ In order to model a system the code requires the use of the following command se
     In order to model a desired system one can choose their desired method by placing a ```1``` next to the variable for the chosen method. For the Hénon system, set ```model_henon = 1``` and all others to ```0```. Only choose one modelling method at a time. <br> <br>
 
 3. Plotting: 
-    The plotting section of the code determines what is plotted. The code supports plotting in 3D and projections on the $xy$, $xz$ and $yz$ axes. The following commands are avalible:
+    The plotting section of the code determines what is plotted. The code supports plotting in 3D and projections on the $xy$, $xz$ and $yz$ axes. The following commands are available:
 
     ```python
     plot_all = 0
@@ -110,7 +110,7 @@ plot_yz = 0
 
 The following analysis tools are implemented in the code:
 
-1. Sensitive Dependance
+1. Sensitive Dependence
 2. Lyapunov Exponents
     - Orbit Separation
     - Modified Gram-Schmidt Orthonormalization
@@ -120,20 +120,20 @@ The following analysis tools are implemented in the code:
 
 Each of the above tools are explained in their own section below. Note that the code was developed primarily for use with the Lorenz system, so analysis functionality with the other systems was not sufficiently tested. Additionally, overlap of variables may result in errors if multiple analysis methods are run at once, so only doing one at a time is recommended.
 
-#### Sensitive Dependance
+#### Sensitive Dependence
 
-The commands for the sensitive dependance section of the code are as follows:
+The commands for the sensitive dependence section of the code are as follows:
 
 ```python
-sensitive_dependance = 0
+sensitive_dependence = 0
 disturbance = 0.0001
 ```
 
-Setting ```sensitive_dependance = 1``` results in the system being modelled twice - once with the initial conditions set in the Initial Conditions command section, and another with the same initial conditions, but the initial x value is disturbed by the amount ```disturbance```. A plot of the differences between the 2 models is generated and saved under ```figures/analysis/Sensitive_Dependance/sensitive_dependance_{system name}.png``` in the working directory. One can modify the ```disturbance``` value to investigate how slight changes in initial conditions results in large changes in final values in deterministic chaotic systems. To calculated the senstive dependance, the system must be manually modelled using the tools outlined earlier.
+Setting ```sensitive_dependence = 1``` results in the system being modelled twice - once with the initial conditions set in the Initial Conditions command section, and another with the same initial conditions, but the initial x value is disturbed by the amount ```disturbance```. A plot of the differences between the 2 models is generated and saved under ```figures/analysis/Sensitive_Dependence/sensitive_dependence_{system name}.png``` in the working directory. One can modify the ```disturbance``` value to investigate how slight changes in initial conditions results in large changes in final values in deterministic chaotic systems. To calculated the sensitive dependence, the system must be manually modelled using the tools outlined earlier.
 
 #### Lyapunov Exponents
 
-Two different methods are implemented to determine the Lyapunov exponent(s) of a system: Orbit separation and the Modified Gram-Schmidt Orthonormalization Method. As previously mentioned, Orbit Separation determins the maximal Lyapunov exponent and the modified Gram-Schmidt Orthonormalization Method determies the spectrum of Lyapunov exponents. Additionally, using either of these methods, one can determine the average Lyapunov exponent, along with its error. The command section for these analysis tools are as follows: 
+Two different methods are implemented to determine the Lyapunov exponent(s) of a system: Orbit separation and the Modified Gram-Schmidt Orthonormalization Method. As previously mentioned, Orbit Separation determines the maximal Lyapunov exponent and the modified Gram-Schmidt Orthonormalization Method determines the spectrum of Lyapunov exponents. Additionally, using either of these methods, one can determine the average Lyapunov exponent, along with its error. The command section for these analysis tools are as follows: 
 
 ```python
 # Orbit separation:
@@ -149,17 +149,17 @@ lyapunov_method = lrnz.orbsep
 num_iterations = 1000
 
 # Additional commands for the noted analysis methods
-method = lrnz.runge_kutta # Orbit Seperation and Average Lyapunov
-sub_method = lrnz.runge_kutta_4 # Orbit Seperation and Average Lyapunov
-d0 = 1e-8 # orbit seperation and Average Lyapunov
-discard = 100 # Orbit Seperation, Gram-Schmidt and Average Lyapunov
+method = lrnz.runge_kutta # Orbit Separation and Average Lyapunov
+sub_method = lrnz.runge_kutta_4 # Orbit Separation and Average Lyapunov
+d0 = 1e-8 # orbit separation and Average Lyapunov
+discard = 100 # Orbit Separation, Gram-Schmidt and Average Lyapunov
 ```
 
 The final section, ```# Additional commands for the noted analysis methods```, contains commands used in the noted analysis methods. They were combined into one section to avoid variable overlap. Each section is explained below.
 
 **Orbit Separation:**
 
-In order to determine the maximal Lyapunov exponent using Orbit separation, one must use the ```orbit_sep``` (set ```orbit_sep = 1```), ```plot_running```, ```method```, ```sub_method```, ```d0``` and ```discard``` commands. One must also specifiy some initial conditions and the system the wish to model, as discussed earlier.
+In order to determine the maximal Lyapunov exponent using Orbit separation, one must use the ```orbit_sep``` (set ```orbit_sep = 1```), ```plot_running```, ```method```, ```sub_method```, ```d0``` and ```discard``` commands. One must also specify some initial conditions and the system the wish to model, as discussed earlier.
 
 ```plot_running``` determines if one would like to plot the running maximal Lyapunov exponent and accepts ```'y'``` (yes) or ```'n'``` (no) as inputs. 
 
@@ -176,11 +176,11 @@ Only the RK methods need a sub-method.
 
 Orbit Separation uses a disturbance to calculate the Lyapunov exponent. This is represented by the variable ```d0```.
 
-In order to avoid calulation errors, an initial set of values should be discarded from the modelling. ```discard = x``` means that ```x``` values will be discarded. 
+In order to avoid calculation errors, an initial set of values should be discarded from the modelling. ```discard = x``` means that ```x``` values will be discarded. 
 
-It is recommeneded to leave the ```d0``` and ```discard``` values unchanged.
+It is recommended to leave the ```d0``` and ```discard``` values unchanged.
 
-The maximal Lyapunov exponent will be printed to the terminal, and if ```plot_running = 1``` then the generated figure will be saved to ```figures/analysis/Lyapunov_Exponents/figures/analysis/Orbit_Separation_Running_Lyaponuv_Values_{system_name}.png```
+The maximal Lyapunov exponent will be printed to the terminal, and if ```plot_running = 1``` then the generated figure will be saved to ```figures/analysis/Lyapunov_Exponents/figures/analysis/Orbit_Separation_Running_Lyapunov_Values_{system_name}.png```
 
 **Modified Gram-Schmidt Orthonormalization Method:**
 
@@ -212,4 +212,4 @@ error_comparison = 0
 log_scale = 0
 ```
 
-In order to calculate the modelling error of a single model, set ```modelling_error = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. By setting ```error_comparison = 1```, a plot of the error for each of the modelling methods, EM, IEM, RK4 and RK8, will be generated to faciliate error comparison. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps and ```system```. A modelling method does not need to be chosen. All plots will be produced and saved to ```figures/analysis/Modelling_Error``` in the working directory. In either of the above cases, setting ```log_scale = 1``` plots the figures on a logarithmic scale.
+In order to calculate the modelling error of a single model, set ```modelling_error = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. By setting ```error_comparison = 1```, a plot of the error for each of the modelling methods, EM, IEM, RK4 and RK8, will be generated to facilitate error comparison. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps and ```system```. A modelling method does not need to be chosen. All plots will be produced and saved to ```figures/analysis/Modelling_Error``` in the working directory. In either of the above cases, setting ```log_scale = 1``` plots the figures on a logarithmic scale.
