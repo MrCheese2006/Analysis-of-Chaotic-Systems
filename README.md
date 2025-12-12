@@ -2,7 +2,7 @@
 
 ## Basic Overview
 
-This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code.
+This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code. In order to run the code, the following libraries need to be installed: ```numpy```, ```matplotlib```, and ```time```.
 
 The code has the following implmentations:
 - Modelling in 3-dimensional space (where applicable), as well as their projections on the xy, xz and yz planes. The following modelling methods are implemented:
@@ -19,9 +19,7 @@ The code has the following implmentations:
 
 ## Code Use Instructions
 
-A video demonstrating how to use each implementation of the code can be found here: INSERT LINK. Text instructions are below. 
-
-All of the code is run and managed from the ```run.py``` file. This is where the initial conditions, system parameters, number of steps and step size are chosen. This is also where the commands are placed for which analysis method to use. This is done by making the desired command variable equal to 1. Each analysis method has some additional parameters that need to be specified, some of while are repeated across methods. These repeated parameters are placed below the commands under the comment block ```Additional Commands for the noted analysis methods```. The required use of these parameters will be discussed in more detail for each analysis method.
+All of the code is run and managed from the ```run.py``` file through a series of command sections. This is where the initial conditions, system parameters, number of steps and step size are chosen. It is also where the commands are placed for which analysis method to use. This is done by making the desired command variable equal to 1. Each analysis method has some additional parameters that need to be specified, some of while are repeated across methods. These repeated parameters are placed below the commands under the comment block ```Additional Commands for the noted analysis methods```. The required use of these parameters will be discussed in more detail for each analysis method.
 
 #### Initial Conditions
 Initial conditions (IC's) are required for all analysis methods except for computing the average Lyapunov spectrum or maximal value. Pre-set IC's are availible for use for each system, or one can create their own custom IC's. The chosen IC must be specified in the ```init``` variable. For example, if one wanted to use the initial conditions for the lorenz system or use custom parameters, they would set ```init = init_lorenz``` or ```init = init_custom```, respectively.
@@ -50,7 +48,7 @@ Runtime is a variable that can be set to ```1``` or ```0``` to print out the com
 
 #### Modelling
 
-In order to model a system the code requires the use of the following command sections: 1. System, 2. Modelling methods and 3. Plotting
+In order to model a system the code requires the use of the following command sections: System, Modelling methods and Plotting.
 
 1. System: 
     The system section consists of a variable ```system``` which allows one to choose the system that they would like to model. Each system has its own function that must be called, and are specified as follows:
@@ -117,7 +115,7 @@ The following analysis tools are implemented in the code:
     - Orbit Separation
     - Modified Gram-Schmidt Orthonormalization
     - Average Lyapunov Exponent and Uncertainties
-3. Poincare Map
+3. Poincare Maps
 4. Modelling Error
 
 Each of the above tools are explained in their own section below. Note that the code was developed primarily for use with the Lorenz system, so analysis functionality with the other systems was not sufficiently tested. Additionally, overlap of variables may result in errors if multiple analysis methods are run at once, so only doing one at a time is recommended.
@@ -131,7 +129,7 @@ sensitive_dependance = 0
 disturbance = 0.0001
 ```
 
-Setting ```sensitive_dependance = 1``` results in the system being modelled twice - once with the initial conditions set in the Initial Conditions command section, and another with the same initial conditions, but the initial x value is disturbed by the amount ```disturbance```. A plot of the differences between the 2 models is generated and saved under ```figures/analysis/sensitive_dependance_{system name}.png``` in the working directory. One can modify the ```disturbance``` value to investigate how slight changes in initial conditions results in large changes in final values in deterministic chaotic systems. To calculated the senstive dependance, the system must be manually modelled using the tools outlined earlier.
+Setting ```sensitive_dependance = 1``` results in the system being modelled twice - once with the initial conditions set in the Initial Conditions command section, and another with the same initial conditions, but the initial x value is disturbed by the amount ```disturbance```. A plot of the differences between the 2 models is generated and saved under ```figures/analysis/Sensitive_Dependance/sensitive_dependance_{system name}.png``` in the working directory. One can modify the ```disturbance``` value to investigate how slight changes in initial conditions results in large changes in final values in deterministic chaotic systems. To calculated the senstive dependance, the system must be manually modelled using the tools outlined earlier.
 
 #### Lyapunov Exponents
 
@@ -157,7 +155,7 @@ d0 = 1e-8 # orbit seperation and Average Lyapunov
 discard = 100 # Orbit Seperation, Gram-Schmidt and Average Lyapunov
 ```
 
-The final section, ```# Additional commands for the noted analysis methods```, contains commands used in the noted analysis methods. They were combined into one section to avoid command overlap. Each section is explained below.
+The final section, ```# Additional commands for the noted analysis methods```, contains commands used in the noted analysis methods. They were combined into one section to avoid variable overlap. Each section is explained below.
 
 **Orbit Separation:**
 
@@ -182,10 +180,36 @@ In order to avoid calulation errors, an initial set of values should be discarde
 
 It is recommeneded to leave the ```d0``` and ```discard``` values unchanged.
 
+The maximal Lyapunov exponent will be printed to the terminal, and if ```plot_running = 1``` then the generated figure will be saved to ```figures/analysis/Lyapunov_Exponents/figures/analysis/Orbit_Separation_Running_Lyaponuv_Values_{system_name}.png```
+
 **Modified Gram-Schmidt Orthonormalization Method:**
 
-Using the Modified Gram-Schmidt Orthonormalization Method requires setting ```GS = 1```, as well as fully modelling the desired system, as discussed earlier. As with Orbit Separation, the ```discard``` variable discards an initial set of values from the calculation. It is recommended to leave this unchanged. 
+Using the Modified Gram-Schmidt Orthonormalization Method requires setting ```GS = 1```, as well as fully modelling the desired system, as discussed earlier. As with Orbit Separation, the ```discard``` variable discards an initial set of values from the calculation. It is recommended to leave this unchanged. The spectrum of Lyapunov exponents will be printed to the terminal.
 
 **Average Lyapunov:**
 
-To determine the Average Lyapunov exponent, set ```orbit_sep = 0```, ```GS = 0``` and ```average_lyapunov = 1```. The other  commands used are ```lyapunov_method```, ```num_iterations```, ```method```, ```sub_method```, ```d0``` and ```discard```. Setting ```lyapunov_method = lrnz.orbsep``` or ```lyapunov_method = lrnz.GS_ortho``` determines the average Lyapunov value(s) using the Orbit Separation Method or the Modified Gram-Schmidt Orthonormalization Method, respectively. ```num_iterations``` specifies the number of times the Lyapunov values are calculated, enabling an average to be calculated. The other commands have the same functionality as earlier described, however all need to be set, regardless of the choice of ```lyapunov_method```. The parameters, step size and number of steps also need to be specified, however the initial conditions do not.
+To determine the Average Lyapunov exponent, set ```orbit_sep = 0```, ```GS = 0``` and ```average_lyapunov = 1```. The other  commands used are ```lyapunov_method```, ```num_iterations```, ```method```, ```sub_method```, ```d0``` and ```discard```. Setting ```lyapunov_method = lrnz.orbsep``` or ```lyapunov_method = lrnz.GS_ortho``` determines the average Lyapunov value(s) using the Orbit Separation Method or the Modified Gram-Schmidt Orthonormalization Method, respectively. ```num_iterations``` specifies the number of times the Lyapunov values are calculated, enabling the average and error calculations. The other commands have the same functionality as earlier described, however all need to be set, regardless of the choice of ```lyapunov_method```. The parameters, step size and number of steps also need to be specified, however the initial conditions do **not**. The average Lyapunov exponent(s) and their error will be printed to the terminal. If ```lyapunov_method = lrnz.orbsep``` is chosen, the running exponent values will not be plotted.
+
+#### Poincare Maps
+
+The command section for this analysis tool is the following:
+
+```python
+# Poincare Map
+Poincare = 0
+```
+
+To plot a Poincare Map for a system, set ```Poincare = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. After running the code, two prompts will appear in the terminal. The first one is ```"Input axis of intersecting plane (x, y or z): " ```, and the second one is ```"Input equation for constant plane of intersection: "```. The first input gets the user to choose what axis they want their intersecting plane to be on. The inputs $(x, y, z) \text{ or } (X, Y, Z)$ for the standard axes of $\mathbb{R}^3$ are accepted. The second input gets the user to input the point along the specified axis at which the plane will be constructed. As previously mentioned, this code only provides support for constant planes. For example, if the inputs to the first and second prompts were respectively chosen as ```z``` and ```25```, a Poincare map would be produced of the intersections of the model with the plane $z = 25$. A 3D plot of the model and the specified plane is also produced. All plots will be saved to ```figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}``` in the working directory. A text file of the intersection points will also be created and saved to ```figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{system_name}_{axis}={plane}.txt``` in the working directory. ```axis``` and ```plane``` are the user inputs.
+
+#### Modelling Error
+
+The command section for this analysis tool is as follows:
+
+```python
+# Modelling Error
+modelling_error = 0
+error_comparison = 0
+log_scale = 0
+```
+
+In order to calculate the modelling error of a single model, set ```modelling_error = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. By setting ```error_comparison = 1```, a plot of the error for each of the modelling methods, EM, IEM, RK4 and RK8, will be generated to faciliate error comparison. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps and ```system```. A modelling method does not need to be chosen. All plots will be produced and saved to ```figures/analysis/Modelling_Error``` in the working directory. In either of the above cases, setting ```log_scale = 1``` plots the figures on a logarithmic scale.

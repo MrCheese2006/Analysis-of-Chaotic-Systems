@@ -50,7 +50,7 @@ system = lrnz.lorenz
 # Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 0
+RK4 = 1
 RK8 = 0
 model_henon = 0
 
@@ -75,7 +75,7 @@ plot_running = 'y' # y or n
 GS = 0
 
 # Average Lyapunov Exponent and Uncertainties
-average_lyapunov = 1
+average_lyapunov = 0
 lyapunov_method = lrnz.orbsep
 num_iterations = 1000
 
@@ -86,7 +86,7 @@ d0 = 1e-8 # Orbit Seperation and Average Lyapunov
 discard = 100 # Orbit Seperation, Gram-Schmidt and Average Lyapunov
 
 # Poincare Map
-Poincare = 0
+Poincare = 1
 
 # Modelling Error
 modelling_error = 0

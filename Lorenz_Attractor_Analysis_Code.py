@@ -361,7 +361,7 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
             ax.plot_surface(X, Y, Z, color='silver', alpha=0.7)
 
         ax.set_title(f"Poincare Plane Intersection for the Plane {p_axis} = {plane} of the {system_name}")
-        plt.savefig(f"figures/analysis/Poincare_Plane_Intersection_{system_name}")
+        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{system_name}")
 
     return
 
@@ -505,7 +505,7 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
         plt.xlabel("Time")
         plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
         plt.plot(x_vals, running_avg)
-        plt.savefig("figures/analysis/Orbit_Separation_Running_Lyaponuv_Values")
+        plt.savefig(f"figures/analysis/Orbit_Separation_Running_Lyaponuv_Values_{system_name}")
 
     return running_avg[-1]
 
@@ -549,9 +549,9 @@ def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_st
 
 # Poincare Maps
 
-def poincare(x, y, z):
+def poincare(x, y, z, system_name):
 
-    axis = input("Input axis of intersecting plane: ")
+    axis = (input("Input axis of intersecting plane (x, y or z): ")).lower()
     plane = int(input("Input equation for constant plane of intersection: "))
     crossings_intsec1, crossings_intsec2 = np.array([]), np.array([])
 
@@ -578,24 +578,24 @@ def poincare(x, y, z):
 
     plt.figure(figsize=(6, 6))
     plt.scatter(crossings_intsec1, crossings_intsec2, s=10, color='blue')
-    plt.title(f"Poincaré Section at {axis} = {plane}")
+    plt.title(f"Poincaré Section of the {system_name} at {axis} = {plane}")
     plt.xlabel(intsec_axis1)
     plt.ylabel(intsec_axis2)
     plt.grid(True)
-    plt.savefig("/figures/analysis/Poincare_Map")
+    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}={plane}")
     plt.show()
 
-    plot_system(x, y, z, True, axis, plane)
+    plot_system(x, y, z, system_name, True, axis, plane)
 
     intsec_points = [[intsec_axis1, intsec_axis2]]
 
-    with open("figures/analysis/poincare_intersections.txt", "w") as write_file:
+    with open(f"figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{system_name}_{axis}={plane}.txt", "w") as write_file:
         write_file.write(str(intsec_points[0])+'\n')
         for j in range(1, len(crossings_intsec1)+1):
             intsec_points.append([float(crossings_intsec1[j-1]), float(crossings_intsec2[j-1])])
             write_file.write(str(intsec_points[j])+'\n')
 
-    return intsec_points
+    return
 
 ############################################################################################################################
 
@@ -638,7 +638,7 @@ def richardson_extrapolation(sol_h, init, plot, model_str, model, method, system
         plt.title(f"Approximate Error of {model_str} Modelling Method, {system_name}")
         plt.xlabel("Time (s)")
         plt.ylabel("Error")
-        plt.savefig(f"figures/analysis/Richardson_Extrapolation_Local_Trucation_Error_{system_name}")
+        plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}")
 
     return local_errors
 
@@ -671,11 +671,11 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
         plt.yscale("log")
         plt.ylabel("Error, Logarithmic Scale")
         plt.legend(loc="lower right")
-        plt.savefig(f"figures/analysis/Error_comparison_log_{system_name}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{system_name}")
     else:
         plt.ylabel("Error")
         plt.legend(loc="upper left")
-        plt.savefig(f"figures/analysis/Error_comparison_{system_name}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{system_name}")
 
     return
 
@@ -819,7 +819,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
         print(avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_steps_to_stop, d0, discard, num_iterations))
 
     if Poincare:
-        print(poincare(x, y, z))
+        poincare(x, y, z, system_name)
 
     if runtime:
         end_time = time.time()
@@ -827,7 +827,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
 
     print("Done")
 
-    if plot or plot_xy or plot_xz or plot_yz or plot_all or orbit_sep or modelling_error or error_comparison or model_henon or sensitive_dependance:
+    if plot or plot_xy or plot_xz or plot_yz or plot_all or orbit_sep or modelling_error or error_comparison or model_henon or sensitive_dependance or Poincare:
         plt.show()
 
     return
