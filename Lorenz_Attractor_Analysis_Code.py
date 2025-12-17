@@ -601,30 +601,34 @@ def poincare(x, y, z, system_name):
 
 # Richardson Extrapolation for error analysis
 
-def richardson_extrapolation(sol_h, init, plot, model_str, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name):
+def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name):
     
-    x2, y2, z2 = model(method, init, system, sub_method, dt/2, params, num_steps_to_stop*2)
+    x2, y2, z2 = model(method, init, system, sub_method, dt*2, params, num_steps_to_stop/2)
     sol_h_2 = np.array([x2, y2, z2])
 
-    local_errors = np.empty((num_steps_to_stop, 1))
+    local_errors = np.empty((num_steps_to_stop))
 
     if method == eulers_method:
+        model_str = "EM"
         order = 1
     elif method == improved_eulers_method:
+        model_str = "IEM"
         order = 2
     elif sub_method == runge_kutta_4:
+        model_str = "RK4"
         order = 4
     else:
+        model_str = "RK8"
         order = 8
 
-    for i in range(num_steps_to_stop):
-        diff_x = sol_h[0][i] - sol_h_2[0][2*i]
-        diff_y = sol_h[1][i] - sol_h_2[1][2*i]
-        diff_z = sol_h[2][i] - sol_h_2[2][2*i]
+    for i in range(num_steps_to_stop/2):
+        diff_x = sol_h[0][2*i] - sol_h_2[0][i]
+        diff_y = sol_h[1][2*i] - sol_h_2[1][i]
+        diff_z = sol_h[2][2*i] - sol_h_2[2][i]
 
         diff = (diff_x**2 + diff_y**2 + diff_z**2)**0.5 # pythagoreas
 
-        local_error = np.abs(diff / (0.5**order - 1))
+        local_error = np.abs(diff / (2**order - 1))
 
         local_errors[i] = local_error
 
@@ -652,15 +656,15 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
     str_methods = ["EM", "IEM", "RK4", "RK8"]
     sub_methods = [None, None, runge_kutta_4, runge_kutta_8]
 
-    time = np.linspace(0, num_steps_to_stop*dt, num_steps_to_stop+1)
+    time = np.linspace(0, num_steps_to_stop*dt, num_steps_to_stop)
     plt.figure()
 
     for i in range(len(methods)):
 
-        x, y, z = model(methods[i], init, lorenz, sub_methods[i], dt, params, num_steps_to_stop)
+        x, y, z = model(methods[i], init, system, sub_methods[i], dt, params, num_steps_to_stop)
         sol_h = np.array([x, y, z])
 
-        local_errors = richardson_extrapolation(sol_h, 0, None, model, methods[i], system, sub_methods[i], dt, params, num_steps_to_stop, system_name)
+        local_errors = richardson_extrapolation(sol_h, init, 0, model, methods[i], system, sub_methods[i], dt, params, num_steps_to_stop, system_name)
 
         plt.plot(time, local_errors, label=str_methods[i])
 
@@ -760,25 +764,21 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
         x, y, z = model(eulers_method, init, system, None, dt, params, num_steps_to_stop)
         method = eulers_method
         sub_method = None
-        model_str = "Eulers Method"
 
     if improved_EM:
         x, y, z = model(improved_eulers_method, init, system, None, dt, params, num_steps_to_stop)
         method = improved_eulers_method
         sub_method = None
-        model_str = "IEM"
 
     if RK4:
         x, y, z = model(runge_kutta, init, system, runge_kutta_4, dt, params, num_steps_to_stop)
         method = runge_kutta
         sub_method = runge_kutta_4
-        model_str = "RK4"
 
     if RK8:
         x, y, z = model(runge_kutta, init, system, runge_kutta_8, dt, params, num_steps_to_stop)
         method = runge_kutta
         sub_method = runge_kutta_8
-        model_str = "RK8"
 
     if model_henon:
         henon(init, params, num_steps_to_stop)
@@ -790,7 +790,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
     # error analysis
     if modelling_error:
         sol_h = np.array([x, y, z])
-        richardson_extrapolation(sol_h, init, 1, model_str, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name)
+        richardson_extrapolation(sol_h, init, 1, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name)
 
     if error_comparison:
         RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system_name)

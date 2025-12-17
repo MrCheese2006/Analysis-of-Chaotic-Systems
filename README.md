@@ -2,7 +2,7 @@
 
 ## Basic Overview
 
-This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich-Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code. In order to run the code, the following libraries need to be installed: ```numpy```, ```matplotlib```, and ```time```.
+This code provides some analysis and modelling tools for various systems of ordinary differential equations. It currently includes implementations for the Lorenz, Rabinovich-Fabrikant, Chen, Hénon, Modified Chua and Duffing systems. Basic knowledge of Python is recommended for use of this code. In order to run the code, the following libraries need to be installed: ```numpy```, ```matplotlib```, and ```time```. This code supports Python versions 3.12 - 3.14.
 
 The code has the following implementations:
 - Modelling in 3-dimensional space (where applicable), as well as their projections on the xy, xz and yz planes. The following modelling methods are implemented:

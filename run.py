@@ -18,7 +18,7 @@ init_henon = np.array([0, 0])
 init_m_chua = np.array([0, 0, 0])
 init_duffing = np.array([0, 0, 0])
 
-init = init_custom
+init = init_lorenz
 
 # System Parameters ###########################################################################################################
 params_custom = [] # choose your own parameters
@@ -50,7 +50,7 @@ system = lrnz.lorenz
 # Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 1
+RK4 = 0
 RK8 = 0
 model_henon = 0
 
@@ -86,12 +86,12 @@ d0 = 1e-8 # Orbit Separation and Average Lyapunov
 discard = 100 # Orbit Separation, Gram-Schmidt and Average Lyapunov
 
 # Poincare Map
-Poincare = 1
+Poincare = 0
 
 # Modelling Error
 modelling_error = 0
-error_comparison = 0
-log_scale = 0
+error_comparison = 1
+log_scale = 1
 
 lrnz.run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
         plot_xz, plot_yz, sensitive_dependence, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
