@@ -32,7 +32,7 @@ Parameters for each system with some traditional values:
 - Rabinovich-Fabrikant: $(a, \text{ } b) = (0.1, \text{ } 0.1)$ 
 - Chen: $(a, \text{ } b, \text{ } c) = (35, \text{ } 3, \text{ } 28)$
 - Hénon: $(a, \text{ } b) = (1.4, \text{ } 0.3)$
-- Modified Chua: $(\alpha, \text{ } \beta, \text{ } a, \text{ } b, \text{ }, \text{ } d) = (10.814, \text{ } 14.0, \text{ } 1.3, \text{ } 0.11, \text{ } 8, \text{ } \pi)$
+- Modified Chua: $(\alpha, \text{ } \beta, \text{ } a, \text{ } b, \text{ } c, \text{ } d) = (10.814, \text{ } 14.0, \text{ } 1.3, \text{ } 0.11, \text{ } 8, \text{ } \pi)$
     - Note that if $c\in \{0, \mathbb{Z}^{+}\}$ is even, then $d = \pi$. If $c$ is odd, then  $d=0$.
 - Duffing: $(\alpha, \text{ } \beta, \text{ } \gamma, \text{ } \delta, \text{ } \omega) = (1, \text{ } -1, \text{ } 0.2, \text{ } 0.3, \text{ } 1)$
 
