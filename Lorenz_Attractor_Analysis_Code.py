@@ -101,7 +101,7 @@ def eulers_method(init, system, sub_method, dt, params, num_steps_to_stop):
 
     # get each value at every
     for i in range(num_steps_to_stop):
-        dx_dt, dy_dt, dz_dt = system(values[0][i], values[1][i], values[2][i], i*dt, params)
+        dx_dt, dy_dt, dz_dt = system(values[0][i], values[1][i], values[2][i], (i+1)*dt, params)
 
         # y_n+1 = y_n + h*(dy_dx|x)
         values[0][i+1] = values[0][i] + dt*dx_dt
@@ -123,7 +123,7 @@ def improved_eulers_method(init, system, sub_method, dt, params, num_steps_to_st
 
     for i in range(num_steps_to_stop):
 
-        dx1, dy1, dz1 = system(values[0][i], values[1][i], values[2][i], i*dt, params)
+        dx1, dy1, dz1 = system(values[0][i], values[1][i], values[2][i], (i+1)*dt, params)
 
 
         x_pred = values[0][i] + dt * dx1
@@ -131,7 +131,7 @@ def improved_eulers_method(init, system, sub_method, dt, params, num_steps_to_st
         z_pred = values[2][i] + dt * dz1
 
 
-        dx2, dy2, dz2 = system(x_pred, y_pred, z_pred, i*dt, params)
+        dx2, dy2, dz2 = system(x_pred, y_pred, z_pred, (i+1)*dt, params)
 
 
         x_next = values[0][i] + (dt / 2) * (dx1 + dx2)
@@ -307,7 +307,7 @@ def runge_kutta(init, system, sub_method, dt, params, num_steps_to_stop):
     x[0], y[0], z[0] = init
 
     for i in range(num_steps_to_stop):
-        t = dt*i
+        t = dt*(i+1)
         x[i+1], y[i+1], z[i+1] = sub_method(system, t, params, [x[i], y[i], z[i]], dt)
 
     return x, y, z
@@ -603,7 +603,7 @@ def poincare(x, y, z, system_name):
 
 def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name):
     
-    x2, y2, z2 = model(method, init, system, sub_method, dt*2, params, num_steps_to_stop/2)
+    x2, y2, z2 = model(method, init, system, sub_method, dt/2, params, num_steps_to_stop*2)
     sol_h_2 = np.array([x2, y2, z2])
 
     local_errors = np.empty((num_steps_to_stop))
@@ -621,10 +621,10 @@ def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_metho
         model_str = "RK8"
         order = 8
 
-    for i in range(num_steps_to_stop/2):
-        diff_x = sol_h[0][2*i] - sol_h_2[0][i]
-        diff_y = sol_h[1][2*i] - sol_h_2[1][i]
-        diff_z = sol_h[2][2*i] - sol_h_2[2][i]
+    for i in range(int(num_steps_to_stop)):
+        diff_x = sol_h[0][i] - sol_h_2[0][2*i]
+        diff_y = sol_h[1][i] - sol_h_2[1][2*i]
+        diff_z = sol_h[2][i] - sol_h_2[2][2*i]
 
         diff = (diff_x**2 + diff_y**2 + diff_z**2)**0.5 # pythagoreas
 
