@@ -214,6 +214,8 @@ log_scale = 0
 
 In order to calculate the modelling error of a single model, set ```modelling_error = 1```. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps, ```system``` and a modelling method. By setting ```error_comparison = 1```, a plot of the error for each of the modelling methods, EM, IEM, RK4 and RK8, will be generated to facilitate error comparison between methods. Before running, the commands for a model of the system need to be set up. This includes setting the parameters, initial conditions, step size, number of steps and ```system```. A modelling method does not need to be chosen. All plots will be produced and saved to ```figures/analysis/Modelling_Error``` in the working directory. In either of the above cases, setting ```log_scale = 1``` plots the figures on a logarithmic scale.
 
+### Miscellaneous
 
+All figures are also saved as an eps file in the same location mentioned for each model and analysis method. 
 
 Thats it! Enjoy the code! :)
