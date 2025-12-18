@@ -167,13 +167,13 @@ def runge_kutta_8(system, t, params, points, dt):
     y_vec = np.array(points, dtype=float)
 
     def f(t, Y): 
-        dx, dy, dz = system(Y[0], Y[1], Y[2], 0, params)
+        dx, dy, dz = system(Y[0], Y[1], Y[2], t, params)
         return np.array([dx, dy, dz], dtype=float)
 
-    y_next = rk8_dop853_step(f, 0.0, y_vec, dt)
+    y_next = rk8_step(f, 0.0, y_vec, dt)
     return float(y_next[0]), float(y_next[1]), float(y_next[2])
 
-def rk8_dop853_step(f, t, y, h):
+def rk8_step(f, t, y, h):
     c = np.array([
         0.0,
         1/18,

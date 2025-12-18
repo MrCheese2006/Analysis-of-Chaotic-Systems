@@ -51,7 +51,7 @@ system = lrnz.lorenz
 EM = 0
 improved_EM = 0
 RK4 = 0
-RK8 = 0
+RK8 = 1
 model_henon = 0
 
 # Plotting:
