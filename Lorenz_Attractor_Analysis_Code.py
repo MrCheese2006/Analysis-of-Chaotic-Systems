@@ -340,8 +340,9 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
     ax.yaxis.pane.set_edgecolor('w')
     ax.zaxis.pane.set_edgecolor('w')
     ax.grid(False)
-    plt.savefig(f"figures/3D/{system_name}")
-    plt.savefig(f"figures/3D/{system_name}.eps")
+    sys_name_nospace = nospace(system_name)
+    plt.savefig(f"figures/3D/{sys_name_nospace}")
+    plt.savefig(f"figures/3D/{sys_name_nospace}.eps")
     print(f"The plot of {system_name} has been saved to figures/3D/")
 
     if pc: # plot poincare intersection plane with the lorenz system
@@ -363,8 +364,9 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
             ax.plot_surface(X, Y, Z, color='silver', alpha=0.7)
 
         ax.set_title(f"Poincare Plane Intersection for the Plane {p_axis} = {plane} of the {system_name}")
-        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{system_name}")
-        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{system_name}.eps")
+        sys_name_nospace = nospace(system_name)
+        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{sys_name_nospace}")
+        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{sys_name_nospace}.eps")
         print(f"The Poincare plane intersection plot for the Plane {p_axis} = {plane} of the {system_name} has been saved to figures/analysis/Poincare_Maps/")
 
     return
@@ -378,8 +380,9 @@ def plot_xy_proj(x, y, system_name):
     plt.ylabel("y")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    plt.savefig(f"figures/projections/xy/xy_proj_{system_name}")
-    plt.savefig(f"figures/projections/xy/xy_proj_{system_name}.eps")
+    sys_name_nospace = nospace(system_name)
+    plt.savefig(f"figures/projections/xy/xy_proj_{sys_name_nospace}")
+    plt.savefig(f"figures/projections/xy/xy_proj_{sys_name_nospace}.eps")
     print(f"The xy projection of the {system_name} has been saved to figures/projections/xy/")
 
     return
@@ -393,8 +396,9 @@ def plot_xz_proj(x, z, system_name):
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    plt.savefig(f"figures/projections/xz/xz_proj_{system_name}")
-    plt.savefig(f"figures/projections/xz/xz_proj_{system_name}.eps")
+    sys_name_nospace = nospace(system_name)
+    plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}")
+    plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}.eps")
     print(f"The xz projection of the {system_name} has been saved to figures/projections/xz/")
 
     return
@@ -408,8 +412,9 @@ def plot_yz_proj(y, z, system_name):
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    plt.savefig(f"figures/projections/yz/yz_proj_{system_name}")
-    plt.savefig(f"figures/projections/yz/yz_proj_{system_name}.eps")
+    sys_name_nospace = nospace(system_name)
+    plt.savefig(f"figures/projections/yz/yz_proj_{sys_name_nospace}")
+    plt.savefig(f"figures/projections/yz/yz_proj_{sys_name_nospace}.eps")
     print(f"The yz projection of the {system_name} has been saved to figures/projections/yz/")
 
     return
@@ -515,8 +520,9 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
         plt.xlabel("Time")
         plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
         plt.plot(x_vals, running_avg)
-        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{system_name}")
-        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{system_name}.eps")
+        sys_name_nospace = nospace(system_name)
+        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{sys_name_nospace}")
+        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{sys_name_nospace}.eps")
         print(f"The running Lyapunov values plot for the {system_name} has been saved to figures/analysis/Lyapunov_Exponents/")
 
     return running_avg[-1]
@@ -588,21 +594,23 @@ def poincare(x, y, z, system_name):
             crossings_intsec1 = np.append(crossings_intsec1, intsec1_cross)
             crossings_intsec2 = np.append(crossings_intsec2, intsec2_cross)
 
+    sys_name_nospace = nospace(system_name)
+
     plt.figure(figsize=(6, 6))
     plt.scatter(crossings_intsec1, crossings_intsec2, s=10, color='blue')
     plt.title(f"Poincaré Section of the {system_name} at {axis} = {plane}")
     plt.xlabel(intsec_axis1)
     plt.ylabel(intsec_axis2)
     plt.grid(True)
-    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}={plane}")
-    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}={plane}.eps")
+    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{sys_name_nospace}_{axis}={plane}")
+    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{sys_name_nospace}_{axis}={plane}.eps")
     print(f"The Poincare Map for the {system_name} at {axis}={plane} has been saved to figures/analysis/Poincare_Maps/")
 
     plot_system(x, y, z, system_name, True, axis, plane)
 
     intsec_points = [[intsec_axis1, intsec_axis2]]
 
-    with open(f"figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{system_name}_{axis}={plane}.txt", "w") as write_file:
+    with open(f"figures/analysis/Poincare_Maps/Intersection_Points/poincare_intersections_{sys_name_nospace}_{axis}={plane}.txt", "w") as write_file:
         write_file.write(str(intsec_points[0])+'\n')
         for j in range(1, len(crossings_intsec1)+1):
             intsec_points.append([float(crossings_intsec1[j-1]), float(crossings_intsec2[j-1])])
@@ -656,18 +664,20 @@ def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_metho
         plt.title(f"Approximate Error of {model_str} Modelling Method, {system_name}")
         plt.xlabel("Time (s)")
 
+        sys_name_nospace = nospace(system_name)
+
         if log_scale:
             plt.yscale("log")
             plt.ylabel("Error, Logarithmic Scale")
             plt.legend(loc="lower right")
-            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{system_name}")
-            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{system_name}.eps")
+            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{sys_name_nospace}")
+            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{sys_name_nospace}.eps")
             print(f"The error plot for the {system_name} on a log scale has been saved to figures/analysis/Modelling_Error/")
         else:
             plt.ylabel("Error")
             plt.legend(loc="upper left")
-            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}") 
-            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}.eps")
+            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{sys_name_nospace}") 
+            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{sys_name_nospace}.eps")
             print(f"The error plot for the {system_name} has been saved to figures/analysis/Modelling_Error/")      
 
     return local_errors
@@ -697,18 +707,20 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
     plt.xlabel("Time (s)")
     plt.title(f"Error Comparison for all Modelling Methods, {system_name}")
     
+    sys_name_nospace = nospace(system_name)
+
     if log_scale:
         plt.yscale("log")
         plt.ylabel("Error, Logarithmic Scale")
         plt.legend(loc="lower right")
-        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{system_name}")
-        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{system_name}.eps")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{sys_name_nospace}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{sys_name_nospace}.eps")
         print(f"The error comparison plot for the {system_name} on a log scale has been saved to figures/analysis/Modelling_Error/")
     else:
         plt.ylabel("Error")
         plt.legend(loc="upper left")
-        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{system_name}")
-        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{system_name}.eps")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{sys_name_nospace}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{sys_name_nospace}.eps")
         print(f"The error comparison plot for the {system_name} has been saved to figures/analysis/Modelling_Error/")
 
     return
@@ -750,8 +762,9 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
     plt.xlabel("Time")
 
     fig.tight_layout()
-    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{system_name}")
-    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{system_name}.eps")
+    sys_name_nospace = nospace(system_name)
+    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{sys_name_nospace}")
+    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{sys_name_nospace}.eps")
     print(f"The sensitive dependance plot for the {system_name} has been saved to figures/analysis/Sensitive_Dependance/")
     return
 
@@ -773,6 +786,21 @@ def get_system_name(system):
         return "Duffing System"
     else:
         return "Modified Chua System"
+
+def nospace(system_name):
+
+    if system_name == "Lorenz System":
+        return "Lorenz_System"
+    elif system_name == "Rabinovich-Fabrikant System":
+        return "Rabinovich-Fabrikant_System"
+    elif system_name == "Chen System":
+        return "Chen_System"
+    elif system_name == "Hénon System":
+        return "Hénon_System"
+    elif system_name == "Duffing System":
+        return "Duffing_System"
+    else:
+        return "Modified_Chua_System"
 
 ############################################################################################################################
 

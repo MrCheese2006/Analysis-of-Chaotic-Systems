@@ -216,6 +216,6 @@ In order to calculate the modelling error of a single model, set ```modelling_er
 
 ### Miscellaneous
 
-All figures are also saved as an eps file in the same location mentioned for each model and analysis method. 
+All figures are also saved as an eps file in the same location mentioned for each model and analysis method. Due to this, the following message may show up in the terminal: ```The PostScript backend does not support transparency; partially transparent artists will be rendered opaque.``` This is because eps files cannot handle transparency. If this creates unsatisfactory figures, the png figures should be used instead. 
 
 Thats it! Enjoy the code! :)

@@ -37,7 +37,7 @@ params = params_lorenz
 
 # step ########################################################################################################################
 dt = 0.01
-num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
+num_steps_to_stop = 20000 # the number of steps that the simulation goes through before stopping
 
 # Commands: ###################################################################################################################
 
@@ -50,12 +50,12 @@ system = lrnz.lorenz
 # Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 0
+RK4 = 1
 RK8 = 0
 model_henon = 0
 
 # Plotting:
-plot_all = 0
+plot_all = 1
 plot = 0
 plot_xy = 0
 plot_xz = 0
