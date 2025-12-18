@@ -1,6 +1,6 @@
 import numpy as np
-import matplotlib.pyplot as plt
 import matplotlib as mpl
+import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 import time
 
@@ -341,6 +341,8 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
     ax.zaxis.pane.set_edgecolor('w')
     ax.grid(False)
     plt.savefig(f"figures/3D/{system_name}")
+    plt.savefig(f"figures/3D/{system_name}.eps")
+    print(f"The plot of {system_name} has been saved to figures/3D/")
 
     if pc: # plot poincare intersection plane with the lorenz system
         x_temp = np.arange(start=np.min(x)-10, stop=np.max(x)+10, step=0.1)
@@ -362,6 +364,8 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
 
         ax.set_title(f"Poincare Plane Intersection for the Plane {p_axis} = {plane} of the {system_name}")
         plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{system_name}")
+        plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{system_name}.eps")
+        print(f"The Poincare plane intersection plot for the Plane {p_axis} = {plane} of the {system_name} has been saved to figures/analysis/Poincare_Maps/")
 
     return
 
@@ -375,6 +379,8 @@ def plot_xy_proj(x, y, system_name):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.savefig(f"figures/projections/xy/xy_proj_{system_name}")
+    plt.savefig(f"figures/projections/xy/xy_proj_{system_name}.eps")
+    print(f"The xy projection of the {system_name} has been saved to figures/projections/xy/")
 
     return
 
@@ -387,7 +393,9 @@ def plot_xz_proj(x, z, system_name):
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
+    plt.savefig(f"figures/projections/xz/xz_proj_{system_name}")
     plt.savefig(f"figures/projections/xz/xz_proj_{system_name}.eps")
+    print(f"The xz projection of the {system_name} has been saved to figures/projections/xz/")
 
     return
 
@@ -401,6 +409,8 @@ def plot_yz_proj(y, z, system_name):
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
     plt.savefig(f"figures/projections/yz/yz_proj_{system_name}")
+    plt.savefig(f"figures/projections/yz/yz_proj_{system_name}.eps")
+    print(f"The yz projection of the {system_name} has been saved to figures/projections/yz/")
 
     return
 
@@ -506,6 +516,8 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
         plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
         plt.plot(x_vals, running_avg)
         plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{system_name}")
+        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{system_name}.eps")
+        print(f"The running Lyapunov values plot for the {system_name} has been saved to figures/analysis/Lyapunov_Exponents/")
 
     return running_avg[-1]
 
@@ -583,7 +595,8 @@ def poincare(x, y, z, system_name):
     plt.ylabel(intsec_axis2)
     plt.grid(True)
     plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}={plane}")
-    plt.show()
+    plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Map_{system_name}_{axis}={plane}.eps")
+    print(f"The Poincare Map for the {system_name} at {axis}={plane} has been saved to figures/analysis/Poincare_Maps/")
 
     plot_system(x, y, z, system_name, True, axis, plane)
 
@@ -594,6 +607,7 @@ def poincare(x, y, z, system_name):
         for j in range(1, len(crossings_intsec1)+1):
             intsec_points.append([float(crossings_intsec1[j-1]), float(crossings_intsec2[j-1])])
             write_file.write(str(intsec_points[j])+'\n')
+        print(f"The intersection points for the {system_name} at {axis}={plane} have been saved to figures/analysis/Poincare_Maps/Intersection_Points/")
 
     return
 
@@ -647,10 +661,14 @@ def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_metho
             plt.ylabel("Error, Logarithmic Scale")
             plt.legend(loc="lower right")
             plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{system_name}")
+            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{system_name}.eps")
+            print(f"The error plot for the {system_name} on a log scale has been saved to figures/analysis/Modelling_Error/")
         else:
             plt.ylabel("Error")
             plt.legend(loc="upper left")
-            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}")      
+            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}") 
+            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}.eps")
+            print(f"The error plot for the {system_name} has been saved to figures/analysis/Modelling_Error/")      
 
     return local_errors
 
@@ -684,10 +702,14 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
         plt.ylabel("Error, Logarithmic Scale")
         plt.legend(loc="lower right")
         plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{system_name}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_log_{system_name}.eps")
+        print(f"The error comparison plot for the {system_name} on a log scale has been saved to figures/analysis/Modelling_Error/")
     else:
         plt.ylabel("Error")
         plt.legend(loc="upper left")
         plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{system_name}")
+        plt.savefig(f"figures/analysis/Modelling_Error/Error_comparison_{system_name}.eps")
+        print(f"The error comparison plot for the {system_name} has been saved to figures/analysis/Modelling_Error/")
 
     return
 
@@ -729,6 +751,8 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
 
     fig.tight_layout()
     fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{system_name}")
+    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{system_name}.eps")
+    print(f"The sensitive dependance plot for the {system_name} has been saved to figures/analysis/Sensitive_Dependance/")
     return
 
 ############################################################################################################################
