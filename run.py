@@ -69,7 +69,7 @@ disturbance = 0.0001
 
 # Orbit separation:
 orbit_sep = 0
-plot_running = 'y' # y or n
+plot_running = 'y' # 'y' or 'n'
 
 # Modified Gram-Schmidt Orthonormalization Method
 GS = 0
@@ -77,7 +77,7 @@ GS = 0
 # Average Lyapunov Exponent and Uncertainties
 average_lyapunov = 0
 lyapunov_method = lrnz.orbsep
-num_iterations = 1000
+num_iterations = 100
 
 # Additional Commands for the noted analysis methods
 method = lrnz.runge_kutta # Orbit Separation and Average Lyapunov

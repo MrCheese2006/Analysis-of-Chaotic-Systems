@@ -387,7 +387,7 @@ def plot_xz_proj(x, z, system_name):
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    plt.savefig(f"figures/projections/xz/xz_proj_{system_name}")
+    plt.savefig(f"figures/projections/xz/xz_proj_{system_name}.eps")
 
     return
 
@@ -505,7 +505,7 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
         plt.xlabel("Time")
         plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
         plt.plot(x_vals, running_avg)
-        plt.savefig(f"figures/analysis/Orbit_Separation_Running_Lyaponuv_Values_{system_name}")
+        plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{system_name}")
 
     return running_avg[-1]
 
@@ -601,7 +601,7 @@ def poincare(x, y, z, system_name):
 
 # Richardson Extrapolation for error analysis
 
-def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name):
+def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_method, dt, params, num_steps_to_stop, log_scale, system_name):
     
     x2, y2, z2 = model(method, init, system, sub_method, dt/2, params, num_steps_to_stop*2)
     sol_h_2 = np.array([x2, y2, z2])
@@ -641,8 +641,16 @@ def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_metho
         plt.plot(time, local_errors)
         plt.title(f"Approximate Error of {model_str} Modelling Method, {system_name}")
         plt.xlabel("Time (s)")
-        plt.ylabel("Error")
-        plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}")
+
+        if log_scale:
+            plt.yscale("log")
+            plt.ylabel("Error, Logarithmic Scale")
+            plt.legend(loc="lower right")
+            plt.savefig(f"figures/analysis/Modelling_Error/Richardson_Extrapolation_Local_Trucation_Error_log_{system_name}")
+        else:
+            plt.ylabel("Error")
+            plt.legend(loc="upper left")
+            plt.savefig(f"figures/analysis/Modelling_error/Richardson_Extrapolation_Local_Trucation_Error_{system_name}")      
 
     return local_errors
 
@@ -664,7 +672,7 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
         x, y, z = model(methods[i], init, system, sub_methods[i], dt, params, num_steps_to_stop)
         sol_h = np.array([x, y, z])
 
-        local_errors = richardson_extrapolation(sol_h, init, 0, model, methods[i], system, sub_methods[i], dt, params, num_steps_to_stop, system_name)
+        local_errors = richardson_extrapolation(sol_h, init, 0, model, methods[i], system, sub_methods[i], dt, params, num_steps_to_stop, log_scale, system_name)
 
         plt.plot(time, local_errors, label=str_methods[i])
 
@@ -720,7 +728,7 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
     plt.xlabel("Time")
 
     fig.tight_layout()
-    fig.savefig(f"figures/analysis/Sensitive_Dependence_{system_name}")
+    fig.savefig(f"figures/analysis/Sensitive_Dependance/Sensitive_Dependence_{system_name}")
     return
 
 ############################################################################################################################
@@ -790,7 +798,7 @@ def run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, R
     # error analysis
     if modelling_error:
         sol_h = np.array([x, y, z])
-        richardson_extrapolation(sol_h, init, 1, model, method, system, sub_method, dt, params, num_steps_to_stop, system_name)
+        richardson_extrapolation(sol_h, init, 1, model, method, system, sub_method, dt, params, num_steps_to_stop, log_scale, system_name)
 
     if error_comparison:
         RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system_name)
