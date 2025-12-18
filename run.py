@@ -37,7 +37,7 @@ params = params_lorenz
 
 # step ########################################################################################################################
 dt = 0.01
-num_steps_to_stop = 50000 # the number of steps that the simulation goes through before stopping
+num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
 
 # Commands: ###################################################################################################################
 
