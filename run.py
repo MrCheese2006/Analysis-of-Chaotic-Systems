@@ -50,7 +50,7 @@ system = lrnz.lorenz
 # Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 1
+RK4 = 0
 RK8 = 0
 model_henon = 0
 
