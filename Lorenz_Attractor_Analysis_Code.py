@@ -192,6 +192,12 @@ def rk8_step(f, t, y, h):
 
     a = np.zeros((13, 12), dtype=float)
 
+    # RK8 coefficients
+    # Buther tableau for the 13-stage, 8th-order Runge-Kutta method based on standard numerical analysis
+    # C. E. E. Meador, “Numerical Calculation of Lyapunov Exponents for Three ...,”
+    # M.S. thesis, Marshall University, Huntington, WV. [Online]. Available:
+    # https://mds.marshall.edu/cgi/viewcontent.cgi?article=1105&context=etd
+
     a[1, 0] = 1/18
 
     a[2, 0] = 1/48
