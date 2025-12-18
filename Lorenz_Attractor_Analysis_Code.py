@@ -57,7 +57,6 @@ def henon(init, params, num_steps_to_stop):
     plt.scatter(points[0], points[1], s=2)
     plt.xlabel("x")
     plt.ylabel("y")
-    plt.title("Hénon System")
 
     return
 
@@ -197,7 +196,7 @@ def rk8_step(f, t, y, h):
     # C. E. E. Meador, “Numerical Calculation of Lyapunov Exponents for Three ...,”
     # M.S. thesis, Marshall University, Huntington, WV. [Online]. Available:
     # https://mds.marshall.edu/cgi/viewcontent.cgi?article=1105&context=etd
-    
+
     a[1, 0] = 1/18
 
     a[2, 0] = 1/48
@@ -335,7 +334,6 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
     fig = plt.figure(dpi=200)
     ax = fig.add_subplot(projection='3d')
     ax.plot(x, y, z, linewidth=0.1)
-    ax.set_title(f"{system_name}", y=0.9)
     ax.set_xlabel("x")
     ax.set_ylabel("y")
     ax.set_zlabel("z")
@@ -369,7 +367,6 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
             X = plane + 0*Y + 0*Z
             ax.plot_surface(X, Y, Z, color='silver', alpha=0.7)
 
-        ax.set_title(f"Poincare Plane Intersection for the Plane {p_axis} = {plane} of the {system_name}")
         sys_name_nospace = nospace(system_name)
         plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{sys_name_nospace}")
         plt.savefig(f"figures/analysis/Poincare_Maps/Poincare_Plane_Intersection_{sys_name_nospace}.eps")
@@ -381,7 +378,6 @@ def plot_xy_proj(x, y, system_name):
 
     fig, ax = plt.subplots(dpi=200) # necessary to plot on seperate windows/graphs
     plt.plot(x, y, linewidth = 0.05)
-    plt.title(f"{system_name} - xy Projection")
     plt.xlabel("x")
     plt.ylabel("y")
     ax.spines['top'].set_visible(False)
@@ -397,11 +393,11 @@ def plot_xz_proj(x, z, system_name):
 
     fig, ax = plt.subplots(dpi=200) # necessary to plot on seperate windows/graphs
     plt.plot(x, z, linewidth = 0.05)
-    plt.title(f"{system_name} - xz Projection")
     plt.xlabel("x")
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
+    plt.axis("off")
     sys_name_nospace = nospace(system_name)
     plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}")
     plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}.eps")
@@ -413,7 +409,6 @@ def plot_yz_proj(y, z, system_name):
 
     fig, ax = plt.subplots(dpi=200) # necessary to plot on seperate windows/graphs
     plt.plot(y, z, linewidth = 0.05)
-    plt.title(f"{system_name} - yz Projection")
     plt.xlabel("y")
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
@@ -524,7 +519,6 @@ def orbsep(method, sub_method, system, init, d0, plot_running, dt, num_steps_to_
         plt.figure()
         plt.ylabel("Running Lyaponuv Values")
         plt.xlabel("Time")
-        plt.title(f"Running Lyapunov Values vs. Time for the {system_name}")
         plt.plot(x_vals, running_avg)
         sys_name_nospace = nospace(system_name)
         plt.savefig(f"figures/analysis/Lyapunov_Exponents/Orbit_Separation_Running_Lyaponuv_Values_{sys_name_nospace}")
@@ -604,7 +598,6 @@ def poincare(x, y, z, system_name):
 
     plt.figure(figsize=(6, 6))
     plt.scatter(crossings_intsec1, crossings_intsec2, s=10, color='blue')
-    plt.title(f"Poincaré Section of the {system_name} at {axis} = {plane}")
     plt.xlabel(intsec_axis1)
     plt.ylabel(intsec_axis2)
     plt.grid(True)
@@ -667,7 +660,6 @@ def richardson_extrapolation(sol_h, init, plot, model, method, system, sub_metho
 
         plt.figure()
         plt.plot(time, local_errors)
-        plt.title(f"Approximate Error of {model_str} Modelling Method, {system_name}")
         plt.xlabel("Time (s)")
 
         sys_name_nospace = nospace(system_name)
@@ -711,7 +703,6 @@ def RE_error_comp(init, dt, params, num_steps_to_stop, system, log_scale, system
         plt.plot(time, local_errors, label=str_methods[i])
 
     plt.xlabel("Time (s)")
-    plt.title(f"Error Comparison for all Modelling Methods, {system_name}")
     
     sys_name_nospace = nospace(system_name)
 
@@ -750,7 +741,6 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
     time = np.linspace(0, dt*num_steps_to_stop, num_steps_to_stop+1)
 
     fig=plt.figure()
-    fig.suptitle(f"Differences in Each Dimension for a Disturbance of x = {d0} \n for the {system_name}")
 
     plt.subplot(3, 1, 1)
     plt.plot(time, x_diff)
