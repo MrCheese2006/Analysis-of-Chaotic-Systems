@@ -28,7 +28,7 @@ params_lorenz = [10, 28, 8/3] # sigma, rho, Beta
 params_rf = [0.14, 0.1] # a, b
 params_chen = [35, 3, 28] # a, b, c
 params_henon = [1.4, 0.3] # a, b
-params_m_chua = [10.814, 14.0, 1.3, 0.11, 8, np.pi] # alpha, Beta, a, b, c, d. Note that c is odd => d = 0, c is even => d = pi
+params_m_chua = [10.814, 14.0, 1.3, 0.11, 4, np.pi] # alpha, Beta, a, b, c, d. Note that c is odd => d = 0, c is even => d = pi
 params_duffing = [1, -1, 0.2, 0.3, 1] # alpha, Beta, gamma, delta, omega 
 
 # choose which parameter set you could like to use while modelling
@@ -37,7 +37,7 @@ params = params_lorenz
 
 # step ########################################################################################################################
 dt = 0.01
-num_steps_to_stop = 10000 # the number of steps that the simulation goes through before stopping
+num_steps_to_stop = 50000 # the number of steps that the simulation goes through before stopping
 
 # Commands: ###################################################################################################################
 
@@ -50,7 +50,7 @@ system = lrnz.lorenz
 # Modelling methods:
 EM = 0
 improved_EM = 0
-RK4 = 1
+RK4 = 0
 RK8 = 0
 model_henon = 0
 
@@ -58,7 +58,7 @@ model_henon = 0
 plot_all = 0
 plot = 0
 plot_xy = 0
-plot_xz = 1
+plot_xz = 0
 plot_yz = 0
 
 # Analysis:
@@ -75,9 +75,9 @@ plot_running = 'y' # 'y' or 'n'
 GS = 0
 
 # Average Lyapunov Exponent and Uncertainties
-average_lyapunov = 0
-lyapunov_method = lrnz.orbsep
-num_iterations = 100
+average_lyapunov = 1
+lyapunov_method = lrnz.GS_ortho
+num_iterations = 1000
 
 # Additional Commands for the noted analysis methods
 method = lrnz.runge_kutta # Orbit Separation and Average Lyapunov

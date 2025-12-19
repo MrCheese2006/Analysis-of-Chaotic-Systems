@@ -57,6 +57,8 @@ def henon(init, params, num_steps_to_stop):
     plt.scatter(points[0], points[1], s=2)
     plt.xlabel("x")
     plt.ylabel("y")
+    plt.savefig(f"figures/3D/henon_system.eps")
+    plt.savefig(f"figures/3D/henon_system.png")
 
     return
 
@@ -345,6 +347,7 @@ def plot_system(x, y, z, system_name, pc, p_axis, plane):
     ax.zaxis.pane.set_edgecolor('w')
     ax.grid(False)
     sys_name_nospace = nospace(system_name)
+    # ax.view_init(16, -136, 0) # change (elevation, azimuth, roll) of the initial view of the figure
     plt.savefig(f"figures/3D/{sys_name_nospace}")
     plt.savefig(f"figures/3D/{sys_name_nospace}.eps")
     print(f"The plot of {system_name} has been saved to figures/3D/")
@@ -397,7 +400,6 @@ def plot_xz_proj(x, z, system_name):
     plt.ylabel("z")
     ax.spines['top'].set_visible(False)
     ax.spines['right'].set_visible(False)
-    plt.axis("off")
     sys_name_nospace = nospace(system_name)
     plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}")
     plt.savefig(f"figures/projections/xz/xz_proj_{sys_name_nospace}.eps")
@@ -538,7 +540,7 @@ def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_st
         exponents = np.zeros((num_iterations, 3)) # rows, columns
 
         for i in range(num_iterations):
-            init = np.random.uniform(0.0, 100.0, 3) # generate random initial conditions each time on the interval [0.0, 100.0)
+            init = np.random.uniform(-100.0, 100.0, 3) # generate random initial conditions each time on the interval [0.0, 100.0)
             x, y, z = model(method, init, system, sub_method, dt, params, num_steps_to_stop)
             exponents[i] = lyapunov_method(x, y, z, params, dt, num_steps_to_stop, discard) # at i-th row, put in the i-th caluclation values for lyapunov exponents
         

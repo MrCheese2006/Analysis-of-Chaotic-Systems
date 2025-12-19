@@ -40,7 +40,7 @@ All of the above traditional parameters are hard-coded into the code already.
 
 #### Step Size, Number of Steps and Runtime
 
-The step size specifies how large of a step one would like while modelling the chosen system. It is also required in all analysis functions. A smaller step size makes the model closer to the exact value but won't travel as far into time. This value can be changed with the ```dt``` variable in the code.
+The step size specifies how large of a step one would like while modelling the chosen system. It is also required in all analysis functions. A smaller step size makes the model closer to the exact value but won't travel as far into time. This value can be changed with the ```dt``` variable in the code. **Note: For the Modified Chua System, a step size of ```dt >= 0.1``` must be used**
 
 The number of steps determines how long your code runs for and how far into time the model is run for, depending on the step size. Note that a large number of steps will result in longer computation times. The number of steps is set by the variable ```num_steps_to_stop```.
 
