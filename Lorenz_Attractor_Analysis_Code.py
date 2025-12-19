@@ -545,7 +545,7 @@ def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_st
             exponents[i] = lyapunov_method(x, y, z, params, dt, num_steps_to_stop, discard) # at i-th row, put in the i-th caluclation values for lyapunov exponents
         
         average = np.mean(exponents, 0) # produces the mean of each column and stores in a a 1x3 average array
-        uncertainty = np.std(exponents, 0) # produces the standard deviation of each column and stores in a a 1x3 average array
+        uncertainty = np.std(exponents, 0) / np.sqrt(num_iterations) # produces the standard deviation of each column and stores in a a 1x3 average array
 
         return f"Average Lyapunov Spectrum = {average} \u00B1 {uncertainty}"
 
@@ -559,7 +559,7 @@ def avg_lyapunov(lyapunov_method, params, system, method, sub_method, dt, num_st
             exponents[i] = lyapunov_method(method, sub_method, system, init, d0, 'n', dt, num_steps_to_stop, params, discard, None)
         
         average = np.mean(exponents, 0) # produces the mean of each column and stores in a a 1x3 average array
-        uncertainty = np.std(exponents, 0) # produces the standard deviation of each column and stores in a a 1x3 average array
+        uncertainty = np.std(exponents, 0) / np.sqrt(num_iterations) # produces the standard deviation of each column and stores in a a 1x3 average array
 
         return f"Average Maximal Lyapunov Value = {average[0]} \u00B1 {uncertainty[0]}"
 
