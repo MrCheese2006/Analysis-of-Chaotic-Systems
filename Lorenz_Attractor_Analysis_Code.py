@@ -747,17 +747,17 @@ def senstive_dep(init, x, y, z, params, dt, num_steps_to_stop, system, method, s
     plt.subplot(3, 1, 1)
     plt.plot(time, x_diff)
     plt.ylabel("Difference in x")
-    plt.xlabel("Time")
+    plt.xlabel("Time (s)")
 
     plt.subplot(3, 1, 2)
     plt.plot(time, y_diff)
     plt.ylabel("Difference in y")
-    plt.xlabel("Time")
+    plt.xlabel("Time (s)")
 
     plt.subplot(3, 1, 3)
     plt.plot(time, z_diff)
     plt.ylabel("Difference in z")
-    plt.xlabel("Time")
+    plt.xlabel("Time (s)")
 
     fig.tight_layout()
     sys_name_nospace = nospace(system_name)

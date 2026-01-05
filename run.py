@@ -5,9 +5,9 @@ import numpy as np
 # Initial Conditions ##########################################################################################################
 
 # choose your own initial conditions
-x_0 = 3
-y_0 = -65
-z_0 = 123
+x_0 = 0
+y_0 = 0
+z_0 = 0
 init_custom = np.array([x_0, y_0, z_0])
 
 # pre-set initial conditions for each system 
@@ -18,7 +18,7 @@ init_henon = np.array([0, 0])
 init_m_chua = np.array([0, 0, 0])
 init_duffing = np.array([0, 0, 0])
 
-init = init_lorenz
+init = init_henon
 
 # System Parameters ###########################################################################################################
 params_custom = [] # choose your own parameters
@@ -32,12 +32,12 @@ params_m_chua = [10.814, 14.0, 1.3, 0.11, 4, np.pi] # alpha, Beta, a, b, c, d. N
 params_duffing = [1, -1, 0.2, 0.3, 1] # alpha, Beta, gamma, delta, omega 
 
 # choose which parameter set you could like to use while modelling
-params = params_lorenz
+params = params_henon
 
 
 # step ########################################################################################################################
 dt = 0.01
-num_steps_to_stop = 50000 # the number of steps that the simulation goes through before stopping
+num_steps_to_stop = 10000000 # the number of steps that the simulation goes through before stopping
 
 # Commands: ###################################################################################################################
 
@@ -52,7 +52,7 @@ EM = 0
 improved_EM = 0
 RK4 = 0
 RK8 = 0
-model_henon = 0
+model_henon = 1
 
 # Plotting:
 plot_all = 0
@@ -75,13 +75,13 @@ plot_running = 'y' # 'y' or 'n'
 GS = 0
 
 # Average Lyapunov Exponent and Uncertainties
-average_lyapunov = 1
+average_lyapunov = 0
 lyapunov_method = lrnz.GS_ortho
 num_iterations = 1000
 
 # Additional Commands for the noted analysis methods
-method = lrnz.runge_kutta # Orbit Separation and Average Lyapunov
-sub_method = lrnz.runge_kutta_4 # Orbit Separation and Average Lyapunov
+method = lrnz.improved_eulers_method # Orbit Separation and Average Lyapunov
+sub_method = lrnz.runge_kutta_8 # Orbit Separation and Average Lyapunov
 d0 = 1e-8 # Orbit Separation and Average Lyapunov
 discard = 100 # Orbit Separation, Gram-Schmidt and Average Lyapunov
 
@@ -91,7 +91,7 @@ Poincare = 0
 # Modelling Error
 modelling_error = 0
 error_comparison = 0
-log_scale = 1
+log_scale = 0
 
 lrnz.run(init, dt, num_steps_to_stop, params, runtime, system, EM, improved_EM, RK4, RK8, model_henon, plot_all, plot, plot_xy, 
         plot_xz, plot_yz, sensitive_dependence, disturbance, orbit_sep, method, sub_method, d0, plot_running, GS, average_lyapunov, 
